@@ -9,7 +9,7 @@ pipeline{
         stage("upload artifact"){
             steps{ 
                 nexusArtifactUploader artifacts: [[artifactId: 'doctor-online', 
-                                                   classifier: '', file: 'target/doctor-online-new', 
+                                                   classifier: '', file: 'target/doctor-online-new.war', 
                                                    type: 'war']], 
                                                    credentialsId: 'nexus3', 
                                                    groupId: 'in.javahome', 
