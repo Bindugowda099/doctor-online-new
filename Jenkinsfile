@@ -17,17 +17,17 @@ pipeline{
                                                    nexusVersion: 'nexus3',
                                                    protocol: 'http', 
                                                    repository: 'do-release', 
-                                                   version: '1.3'
+                                                   version: '1.4'
             }
         } 
         stage("Dev Deploy"){
            steps{
               sshagent(['tomcat-dev']) {
                 // Copy war file to tomcat dev server
-                sh "scp -o StrictHostKeyChecking=no target/doctor-online.war ec2-user@172.31.93.234:/opt/tomcat9/webapps/"
+                sh "scp -o StrictHostKeyChecking=no target/doctor-online.war ec2-user@172.31.93.234:/opt/tomcat-9/webapps/"
                 // Restart tomcat server
-                sh "ssh ec2-user@172.31.93.234 /opt/tomcat9/bin/shutdown.sh"
-                sh "ssh ec2-user@172.31.93.234 /opt/tomcat9/bin/startup.sh"
+                sh "ssh ec2-user@172.31.93.234 /opt/tomcat-9/bin/shutdown.sh"
+                sh "ssh ec2-user@172.31.93.234 /opt/tomcat-9/bin/startup.sh"
               }
            } 
         }
