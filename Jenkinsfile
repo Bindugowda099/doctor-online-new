@@ -6,6 +6,20 @@ pipeline{
                sh 'mvn package'
            } 
         }
+        stage("upload artifact"){
+            steps{ 
+                nexusArtifactUploader artifacts: [[artifactId: 'doctor-online', 
+                                                   classifier: '', file: 'target/doctor-online-new', 
+                                                   type: 'war']], 
+                                                   credentialsId: 'nexus3', 
+                                                   groupId: 'in.javahome', 
+                                                   nexusUrl: '172.31.36.80:8081',
+                                                   nexusVersion: 'nexus3',
+                                                   protocol: 'http', 
+                                                   repository: 'do-release', 
+                                                   version: '1.3'
+            }
+        } 
         stage("Dev Deploy"){
            steps{
               sshagent(['tomcat-dev']) {
